@@ -23,11 +23,16 @@ from aiy.cloudspeech import CloudSpeechClient
 
 
 def get_hints(language_code):
-    if language_code.startswith('en_'):
+    if language_code.startswith('zh_TW'):
         return ('turn on the light',
+                '開燈',
                 'turn off the light',
+                '關燈',
                 'blink the light',
-                'goodbye')
+                '閃爍',
+                'goodbye,
+                '再見'
+                          )
     return None
 
 def locale_language():
@@ -60,10 +65,18 @@ def main():
             text = text.lower()
             if 'turn on the light' in text:
                 board.led.state = Led.ON
+            elif '開燈' in text:
+                board.led.state = Led.ON
             elif 'turn off the light' in text:
                 board.led.state = Led.OFF
+            elif '關燈' in text:
+                board.led.state = Led.OFF
+            elif '閃爍' in text:
+                board.led.state = Led.BLINK
             elif 'blink the light' in text:
                 board.led.state = Led.BLINK
+            elif '再見' in text:
+                break
             elif 'goodbye' in text:
                 break
 
